@@ -1,0 +1,76 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+}
+header{
+    background-image: url(../img/header_page_acc.jpg);
+    background-repeat:no-repeat ;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    position: sticky;
+    background-size: cover;
+    top: 0px;
+    border-bottom:3px solid rgba(0, 0, 0, 0.124);
+
+}
+header h1{
+    background-color: rgba(0, 0, 0, 0.353);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+h1 span{
+    color: burlywood;
+}
+header input{
+    width: 300px;
+    border-radius: 10px;
+    height: 30px;
+}
+.divIcone{
+    position: relative;
+}
+.divIcone i{
+    position: absolute;
+    right: 10px;
+}
+header div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+main{
+    background-color: #e6e6e6;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    margin: 40px;
+    padding: 10px;
+}
+main>div>div ,ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;flex-wrap: wrap;
+    padding: 20px;
+}
+main img{
+height: 180px;
+width: 150px;
+}
+ul i{
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.561);
+}
+ul li{
+    display: block;
+}
+ul{
+    border-bottom: 2px solid rgba(0, 0, 0, 0.409);
+    background-image: url(../img/abstrait-blanc-lignes-ondulees-lisses_476363-168.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+}
