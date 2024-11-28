@@ -18,7 +18,7 @@
     <script defer src="<?= base_url('js/main.js') ?>"></script>
 
 </head>
-<body>
+<body class="acctuelle">
     <nav class="sidebar" id="sb">
         <div class="text">Service</div>
         <ul id="cont">
@@ -34,7 +34,7 @@
             <li><a href="#">Accueil</a></li>
             <li><a href="#">Emplois des services</a></li>
             <li><a href="#">À propos</a></li>
-            <li><a href="#">Log-in</a></li>
+            <li><a href="/login">Log-in</a></li>
         </ul>
     </nav>
 
@@ -48,7 +48,7 @@
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div class="signe">
-            <p>signe in</p>
+            <p> <a href="/login">signe in</a></p>
             <i class="fa-solid fa-user"></i>
         </div>
     </header>

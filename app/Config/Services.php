@@ -3,6 +3,8 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseService;
+use CodeIgniter\Email\Email;
+
 
 /**
  * Services Configuration file.
@@ -29,4 +31,20 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+    public static function email($getShared = true)
+    {
+        if ($getShared)
+        {
+            return static::getSharedInstance('email');
+        }
+
+        // Custom email configuration if needed
+        $config = new \Config\Email();
+        // You can modify any properties dynamically here
+        $config->SMTPUser = 'chapterchatter788@gmail.com';
+        $config->SMTPPass = 'Chapter123CHATER';
+
+        // Return the email service with custom config
+        return new Email($config);
+    }
 }

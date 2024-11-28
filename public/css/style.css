@@ -136,7 +136,7 @@ ul li{
 }
 
 /*      header      */
-header{
+.acctuelle header{
     background-image: url(../img/header_page_acc.jpg);
     background-repeat:no-repeat ;
     height: 100px;
@@ -186,6 +186,7 @@ main{
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     margin: 60px;
+    margin-top: 260px;
     padding: 10px;
 }
 main>div>div ,main ul{
@@ -364,3 +365,110 @@ a{
     text-decoration: none;
 }
 
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../img/istockphoto-528740757-612x612.jpg); 
+    height: 120vh;
+    gap: 30px;
+}
+.register main{
+    /* background-color: #fbfbfb; */
+    background-color: rgba(0, 0, 0, 0.727);
+
+    border-radius: 15px;
+    padding: 60px 40px;
+    width: 70%;
+}
+.register form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+    gap: 20px;
+
+
+}
+.register form div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.register input {
+    width: 60%;
+    height: 30px;
+    padding: 10px;
+    border: 0px;
+    box-shadow:0px 1px 1px rgba(0, 0, 0, 0.224);
+    border-radius: 15px;
+}
+
+.register label { 
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    font-size: 20px;
+    justify-self: end;
+    width:100px;
+
+}
+.register h3{
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    padding: 10px;
+    text-align: center;
+}
+.subBtn {
+    border: 0px;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-size: 20px;
+    color: #67d776;
+    background-color: white;
+    box-shadow:0px 1px 2px rgba(0, 0, 0, 0.224);
+    
+}
+.subBtn:hover{
+    background-color: #67d776;
+    color: white;
+}
+.register span{
+    color: red;
+}
+.register form button{
+    
+    background-color: white;
+    border: #3e1e0d  1px solid ;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+.register form button:hover{
+    background-color: #3e1e0d ;
+    border: #3e1e0d 1px solid ;
+    color: white;
+   
+}
+.register p ,.register a , form {
+    color: white;
+}
+.register p:hover ,a:hover{
+    color: #ba734d;
+}
+.header{
+    background-color: rgba(0, 0, 0, 0.727);
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    position: fixed;
+    top: 0px;
+}
+.header img{
+    
+    height: 150px;
+    z-index: 4;
+}
