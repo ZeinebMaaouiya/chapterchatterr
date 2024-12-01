@@ -25,4 +25,38 @@ $routes->post('/reset-password', 'AuthController::resetPassword');
 
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
 
+$routes->get('/book', 'BookController::index');
+
+// Authors Routes
+$routes->get('/author', 'AuthorController::index');
+$routes->get('/author/create', 'AuthorController::create');
+$routes->post('/author/store', 'AuthorController::store');
+$routes->get('/author/edit/(:num)', 'AuthorController::edit/$1');
+$routes->post('/author/update/(:num)', 'AuthorController::update/$1');
+$routes->get('/author/delete/(:num)', 'AuthorController::delete/$1');
+
+// Genres Routes
+$routes->get('/genre', 'GenreController::index');
+$routes->get('/genre/create', 'GenreController::create');
+$routes->post('/genre/store', 'GenreController::store');
+$routes->get('/genre/edit/(:num)', 'GenreController::edit/$1');
+$routes->post('/genre/update/(:num)', 'GenreController::update/$1');
+$routes->get('/genre/delete/(:num)', 'GenreController::delete/$1');
+
+// Categories Routes
+$routes->get('/category', 'CategoryController::index');
+$routes->get('/category/create', 'CategoryController::create');
+$routes->post('/category/store', 'CategoryController::store');
+$routes->get('/category/edit/(:num)', 'CategoryController::edit/$1');
+$routes->post('/category/update/(:num)', 'CategoryController::update/$1');
+$routes->get('/category/delete/(:num)', 'CategoryController::delete/$1');
+
+// Books Routes
+$routes->get('/book', 'BookController::index');
+$routes->get('/book/create', 'BookController::create');
+$routes->post('/book/store', 'BookController::store');
+$routes->get('/book/edit/(:num)', 'BookController::edit/$1');
+$routes->post('/book/update/(:num)', 'BookController::update/$1');
+$routes->get('/book/delete/(:num)', 'BookController::delete/$1');
+
 
