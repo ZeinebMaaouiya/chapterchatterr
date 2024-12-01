@@ -41,8 +41,8 @@ class Services extends BaseService
         // Custom email configuration if needed
         $config = new \Config\Email();
         // You can modify any properties dynamically here
-        $config->SMTPUser = 'chapterchatter788@gmail.com';
-        $config->SMTPPass = 'Chapter123CHATER';
+        $config->SMTPUser = 'zeinebou.maaouiya.2r@edu.uiz.ac.ma';
+        $config->SMTPPass = '49002288';
 
         // Return the email service with custom config
         return new Email($config);

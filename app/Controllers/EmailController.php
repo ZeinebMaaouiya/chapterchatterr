@@ -13,8 +13,8 @@ class EmailController extends Controller
         $emailService = Services::email();
         
         // Paramètres de l'email
-        $emailService->setFrom('chapterchatter788@gmail.com', 'Nom de votre application');
-        $emailService->setTo('destinataire@example.com');
+        $emailService->setFrom('zeinebou.maaouiya.2r@edu.uiz.ac.ma', 'Nom de votre application');
+        $emailService->setTo('zeineboumaaouiya@gmail.com');
         $emailService->setSubject('Test Email');
         $emailService->setMessage('Ceci est un email de test pour vérifier l\'envoi via CodeIgniter.');
 

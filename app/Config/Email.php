@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail;
+    public string $fromEmail='zeinebou.maaouiya.2r@edu.uiz.ac.ma';
     public string $fromName;
     public string $recipients;
    
@@ -39,8 +39,8 @@ class Email extends BaseConfig
     public function __construct()
     {
         // Initialisation des propriétés avec les valeurs provenant des variables d'environnement
-        $this->fromEmail = getenv('CI_EMAIL_SMTP_USER');  // Email de l'expéditeur
-        $this->fromName = 'Nom de votre application';      // Nom de l'expéditeur (ajustez à votre besoin)
+       // $this->fromEmail = getenv('CI_EMAIL_SMTP_USER');  // Email de l'expéditeur
+        $this->fromName = 'chapterChatter';      // Nom de l'expéditeur (ajustez à votre besoin)
         $this->SMTPUser = getenv('CI_EMAIL_SMTP_USER');    // Utilisateur SMTP (souvent l'email)
         $this->SMTPPass = getenv('CI_EMAIL_SMTP_PASS');    // Mot de passe SMTP ou token d'application
 
