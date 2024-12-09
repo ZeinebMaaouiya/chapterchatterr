@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
-    <style>
-        body{
-            background-color: white;
-        }
-    </style>
+    
 </head>
 <body class="register" >
     <header class=" header">

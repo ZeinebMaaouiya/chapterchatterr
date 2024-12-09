@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 <body class="register">
-    
+    <header class=" header">
+        <div id="btn" class="btn">
+                <i class="fa-sharp fa-solid fa-bars"></i>
+        </div>
+        <img src="<?=base_url('/img/Preview-removebg-preview.png')?>" alt="">
+        
+        <div class="signe">
+                <p> <a href="/login">signe in</a></p>
+                <i class="fa-solid fa-user"></i>
+        </div>
+    </header>
     <main>
         <form action="/forgot-password" method="post">
             <?= csrf_field() ?>
