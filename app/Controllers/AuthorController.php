@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\AuthorModel;
 
 class AuthorController extends BaseController
@@ -14,11 +15,19 @@ class AuthorController extends BaseController
 
     public function create()
     {
+        if (!$this->isAdmin()) {
+            return redirect()->to('/author')->with('error', 'You do not have permission to perform this action.');
+        }
+
         return view('authors/create');
     }
 
     public function store()
     {
+        if (!$this->isAdmin()) {
+            return redirect()->to('/author')->with('error', 'You do not have permission to perform this action.');
+        }
+
         // Validate form input
         if (!$this->validate([
             'name' => 'required|min_length[3]|max_length[255]',
@@ -32,15 +41,11 @@ class AuthorController extends BaseController
         $imagePath = '';
 
         if ($imageFile->isValid() && !$imageFile->hasMoved()) {
-            // Generate a unique file name
             $newName = $imageFile->getRandomName();
-            // Move the image to the img folder
-            $imageFile->move(WRITEPATH . 'public/img', $newName);
-            // Set the image path to store in the database
+            $imageFile->move(FCPATH . 'public/img', $newName);
             $imagePath = 'public/img/' . $newName;
         }
 
-        // Insert author data into the database
         $model = new AuthorModel();
         $data = [
             'name' => $this->request->getPost('name'),
@@ -56,39 +61,45 @@ class AuthorController extends BaseController
 
     public function edit($id)
     {
+        if (!$this->isAdmin()) {
+            return redirect()->to('/author')->with('error', 'You do not have permission to perform this action.');
+        }
+
         $model = new AuthorModel();
         $data['author'] = $model->find($id);
+
+        if (!$data['author']) {
+            return redirect()->to('/author')->with('error', 'Author not found.');
+        }
+
         return view('authors/edit', $data);
     }
 
     public function update($id)
     {
+        if (!$this->isAdmin()) {
+            return redirect()->to('/author')->with('error', 'You do not have permission to perform this action.');
+        }
+
         $model = new AuthorModel();
-        
-        // Validate form input
-        $validation =  \Config\Services::validation();
+
         if (!$this->validate([
             'name' => 'required|min_length[3]|max_length[255]',
             'bio'  => 'permit_empty|string',
             'profile_picture' => 'is_image[profile_picture]|max_size[profile_picture,1024]|mime_in[profile_picture,image/jpg,image/jpeg,image/png,image/gif]',
         ])) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->back()->withInput()->with('errors', \Config\Services::validation()->getErrors());
         }
 
-        // Handle the image upload if a new picture is provided
         $imageFile = $this->request->getFile('profile_picture');
-        $imagePath = $this->request->getPost('existing_profile_picture');  // Use the existing image if no new one is uploaded
+        $imagePath = $this->request->getPost('existing_profile_picture');
 
         if ($imageFile->isValid() && !$imageFile->hasMoved()) {
-            // Generate a unique file name
             $newName = $imageFile->getRandomName();
-            // Move the image to the img folder
-            $imageFile->move(WRITEPATH . 'public/img', $newName);
-            // Set the new image path to store in the database
-            $imagePath = 'img/' . $newName;  // Store the relative path
+            $imageFile->move(FCPATH . 'public/img', $newName);
+            $imagePath = 'public/img/' . $newName;
         }
 
-        // Update author data in the database
         $data = [
             'name' => $this->request->getPost('name'),
             'bio'  => $this->request->getPost('bio'),
@@ -106,19 +117,26 @@ class AuthorController extends BaseController
 
     public function delete($id)
     {
+        if (!$this->isAdmin()) {
+            return redirect()->to('/author')->with('error', 'You do not have permission to perform this action.');
+        }
+
         $model = new AuthorModel();
         $author = $model->find($id);
 
         if ($author) {
-            // If there's a profile picture, delete it from the server
-            if (!empty($author['profile_picture']) && file_exists(WRITEPATH . 'public/img/' . $author['profile_picture'])) {
-                unlink(WRITEPATH . 'public/' . $author['profile_picture']);
+            if (!empty($author['profile_picture']) && file_exists(FCPATH . 'public/' . $author['profile_picture'])) {
+                unlink(FCPATH . 'public/' . $author['profile_picture']);
             }
 
-            // Delete the author from the database
             $model->delete($id);
         }
 
         return redirect()->to('/author');
+    }
+
+    private function isAdmin()
+    {
+        return session('user_type') === 'admin';
     }
 }

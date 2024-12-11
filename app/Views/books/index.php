@@ -3,21 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Review</title>
-    <link rel="stylesheet" href="<?= base_url('css/main.css') ?>">
+    <title>Books List</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel="stylesheet" href="https://fontawesome.com/start">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/images/favicon/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest/app.json">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">    
 </head>
 <body class="indexBook">
     <header>
         <div>
-            <img src="/public/img/Preview-removebg-preview.png" alt="Chapter Chatter">
-            <h1>chapter<span>chatter</span></h1>
+        <img src="<?= base_url('img/logo.png'); ?>" alt="Logo">
+        <h1>chapter<span>chatter</span></h1>
         </div>
         <div>
             <ul>
-                <li><a href="/about">About</a></li>
-                <li><a href="/home">Home</a></li>
-                <li><a href="/categories">Categories</a></li>
-                <li><a href="/top">Top</a></li>
+                <li><a href="/category">categories</a></li>
+                <li><a href="/book">bookes</a></li>
+                <li><a href="/author">autours</a></li>
+                <li><a href="/login">Log-in</a></li>
             </ul>
             <div class="search-bar">
                 <input type="search" placeholder="Search">
@@ -29,53 +39,32 @@
             <i class="fa-solid fa-user"></i>
         </div>
     </header>
-    <main>
-        <?php foreach ($book as $bookDetail): ?>
-        <section class="book-section">
-            <div class="book-cover">
-                <?php if (!empty($bookDetail['cover_image'])): ?>
-                <img src="/uploads/<?= esc($bookDetail['cover_image']); ?>" alt="<?= esc($bookDetail['name']); ?>">
-                <?php else: ?>
-                <img src="/public/img/default-cover.png" alt="Default Cover">
-                <?php endif; ?>
-            </div>
-            <div class="book-details">
-                <h3><?= esc($bookDetail['name']); ?></h3>
-                <p>By: <a href="#"><p>By: <a href="#"><?= esc($bookDetail['author_name']); ?></a></p></a></p>
-                <p><?= esc($bookDetail['summary'] ?? 'No description available'); ?></p>
-                <p><?= esc($bookDetail['pages'] ?? 'N/A'); ?> pages</p>
-                <p>First Published: <?= esc($bookDetail['published_date'] ?? 'Unknown'); ?></p>
-                <div>
-                    <h5>Genres:</h5>
-                    <ul>
-                        <?php if (!empty($bookDetail['categories'])): ?>
-                            <?php foreach ($bookDetail['categories'] as $category): ?>
-                                <li><?= esc($category['name']); ?></li>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <li>Uncategorized</li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
 
+    <main>
+        <h2>Books List</h2>
+
+        <section class="book-list">
+            <?php foreach ($book as $bookDetail): ?>
+                <div class="book-item">
+                    <a href="/book/show/<?= $bookDetail['id']; ?>">
+                        <div class="book-cover">
+                            <?php if (!empty($bookDetail['cover_image'])): ?>
+                                <img src="<?= base_url('public/img/' . esc($bookDetail['cover_image'])); ?>" alt="<?= esc($bookDetail['name']); ?>" class="book-image">
+                            <?php else: ?>
+                                <img src="<?= base_url('public/img/default-cover.png'); ?>" alt="Default Cover" class="book-image">
+                            <?php endif; ?>
+                        </div>
+                        <h3 class="book-title"><?= esc($bookDetail['name']); ?></h3>
+                    </a>
                 </div>
-                <div class="book-meta">
-                    <ul>
-                        <li>Format: <?= esc($bookDetail['format'] ?? 'N/A'); ?></li>
-                        <li>ISBN: <?= esc($bookDetail['isbn'] ?? 'N/A'); ?></li>
-                        <li>ASIN: <?= esc($bookDetail['asin'] ?? 'N/A'); ?></li>
-                        <li>Language: <?= esc($bookDetail['language'] ?? 'N/A'); ?></li>
-                    </ul>
-                </div>
-                <div class="actions">
-                    <a href="/book/edit/<?= $bookDetail['id']; ?>">Edit</a>
-                    <a href="/book/delete/<?= $bookDetail['id']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </section>
-        <?php endforeach; ?>
-        <a href="/book/create" class="add-new">Add New Book</a>
+        <?php if (session('user_type') === 'admin'): ?>
+            <a href="/book/create" class="add-new">Add New Book</a>
+        <?php endif; ?>
+        
     </main>
+
     <footer>
         <p>&copy; 2024 Chapter Chatter. All rights reserved.</p>
     </footer>

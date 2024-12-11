@@ -16,9 +16,10 @@ body{
 header{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: burlywood;
+    margin: 0px;
+    justify-content: space-around;
+    background-color: #141414;
+    color: antiquewhite;
 }
 header ul{
     display: flex;
@@ -26,6 +27,9 @@ header ul{
     gap: 10px;
     margin-right:10px ;
 
+}
+header img {
+    height: 60px;
 }
 header div{
     display: flex;

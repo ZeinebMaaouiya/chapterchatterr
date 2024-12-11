@@ -22,19 +22,18 @@
     <nav class="sidebar" id="sb">
         <div class="text">Service</div>
         <ul id="cont">
-            <li>
-                <a href="#" id="admin-btn" class="admin-btn"> Service 
-                    <i id="first" class="fa-solid fa-caret-down"></i>
-                </a>
-                <ul id="admin-show" class="admin-show"> <!-- Fixed trailing space -->
-                    <li><a href="#">Reclamation</a></li>
-                    <li><a href="#">Rendez-vous</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Accueil</a></li>
-            <li><a href="#">Emplois des services</a></li>
-            <li><a href="#">À propos</a></li>
-            <li><a href="/login">Log-in</a></li>
+           
+            <li><a href="/category">categories</a></li>
+            <li><a href="/book">bookes</a></li>
+            <li><a href="/author">autours</a></li>
+            <?php if (session()->has('user')): ?>
+               <li> <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?></li>
+               <li> <a href="/logout">Déconnexion</a></li>
+            <?php else: ?>
+                <li><a href="/login">Log-in</a></li>
+            <?php endif; ?>
+
+            
         </ul>
     </nav>
 
@@ -48,7 +47,13 @@
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div class="signe">
-            <p> <a href="/login">signe in</a></p>
+        <?php if (session()->has('user')): ?>
+
+                <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?>
+            <?php else: ?>
+                <li><a href="/login">Log-in</a></li>
+            <?php endif; ?>
+
             <i class="fa-solid fa-user"></i>
         </div>
     </header>

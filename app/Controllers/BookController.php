@@ -41,9 +41,7 @@ class BookController extends BaseController
         $data['book'] = $books;
         return view('books/index', $data);
     }
-    
-    
-
+   
     // Show the form to create a new book
     public function create()
     {
@@ -71,11 +69,9 @@ class BookController extends BaseController
             'category_id' => 'required', // Array of selected category IDs
             'summary' => 'required',
             'pages' => 'required|integer',
-            
             'format' => 'required',
             'isbn' => 'required|is_unique[livre.isbn]',
             'asin' => 'required|is_unique[livre.asin]',
-            // 'cover_image' => 'uploaded[cover_image]|max_size[cover_image,2048]|is_image[cover_image]',
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -87,7 +83,7 @@ class BookController extends BaseController
         $coverImageName = "";
         if ($coverImage && $coverImage->isValid() && !$coverImage->hasMoved()) {
             $coverImageName = $coverImage->getRandomName();
-            $coverImage->move(WRITEPATH . 'uploads', $coverImageName);
+            $coverImage->move(FCPATH . 'public/img', $coverImageName);  // Move image to public/img
         }
 
         // Save book data to 'livre' table
@@ -101,20 +97,19 @@ class BookController extends BaseController
             'isbn' => $this->request->getPost('isbn'),
             'asin' => $this->request->getPost('asin'),
             'language' => $this->request->getPost('language'),
-            'cover_image' => $coverImageName,
+            'cover_image' => $coverImageName, // Save image filename
         ];
 
         // Insert book data and get book ID
         $bookId = $livreModel->insert($bookData);
 
         if (!$bookId) {
-            // Log and check for database errors
             log_message('error', 'Error inserting book: ' . json_encode($livreModel->errors()));
             return redirect()->back()->with('errors', 'Error inserting book.');
         }
 
         // Insert categories into the 'book_categories' pivot table
-        $selectedCategories = $this->request->getPost('category_id'); // Get selected categories
+        $selectedCategories = $this->request->getPost('category_id'); 
         if ($selectedCategories) {
             foreach ($selectedCategories as $categoryId) {
                 $bookCategoryModel->insert([
@@ -124,7 +119,7 @@ class BookController extends BaseController
             }
         }
 
-        return redirect()->to('/books')->with('success', 'Book added successfully!');
+        return redirect()->to('/book')->with('success', 'Book added successfully!');
     }
 
     // Show the form to edit an existing book
@@ -179,7 +174,7 @@ class BookController extends BaseController
         $coverImageName = "";
         if ($coverImage && $coverImage->isValid() && !$coverImage->hasMoved()) {
             $coverImageName = $coverImage->getRandomName();
-            $coverImage->move(WRITEPATH . 'uploads', $coverImageName);
+            $coverImage->move(FCPATH . 'public/img', $coverImageName);  // Move image to public/img
         }
 
         // Save updated book data to 'livre' table
@@ -193,7 +188,7 @@ class BookController extends BaseController
             'isbn' => $this->request->getPost('isbn'),
             'asin' => $this->request->getPost('asin'),
             'language' => $this->request->getPost('language'),
-            'cover_image' => $coverImageName ?: $this->request->getPost('existing_cover_image'),
+            'cover_image' => $coverImageName ?: $this->request->getPost('existing_cover_image'), // Use existing if no new image
         ];
 
         $livreModel->update($id, $bookData);
@@ -231,23 +226,35 @@ class BookController extends BaseController
     }
 
     // Show a single book's details
-    public function show($id)
+    public function shows($id)
     {
+        // Load models
         $livreModel = new LivreModel();
         $bookCategoryModel = new BookCategoriesModel();
         $categoryModel = new CategoryModel();
-
-        // Get the book details
-        $data['book'] = $livreModel->find($id);
-
+        
+        // Get the book details with author info
+        $data['book'] = $livreModel
+            ->select('livre.*, authors.name as author_name')
+            ->join('authors', 'authors.id = livre.author_id', 'left')
+            ->find($id);
+    
+        // Check if the book exists
+        if (!$data['book']) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Book not found');
+        }
+    
         // Get the associated categories
         $bookCategories = $bookCategoryModel->where('livre_id', $id)->findAll();
-        $categoryIds = array_map(function($item) {
+        $categoryIds = array_map(function ($item) {
             return $item['category_id'];
         }, $bookCategories);
-
+    
+        // Get the category details for the book
         $data['categories'] = $categoryModel->whereIn('id', $categoryIds)->findAll();
-
-        return view('books/show', $data);
+    
+        // Load the view with the data
+        return view('books/display', $data);
     }
+    
 }

@@ -15,7 +15,7 @@ class DashboardController extends BaseController
         $user = session('user');
 
         // Charger la vue du tableau de bord avec les données utilisateur
-        return view('dashboard', [
+        return view('acceille', [
             'user' => $user,
         ]);
     }

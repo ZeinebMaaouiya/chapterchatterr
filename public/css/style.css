@@ -180,6 +180,9 @@ header div{
 .signe{
 margin-right: 60px;
 }
+#cont{
+    color: white;
+}
 /*            main        */
 main{
     background-color: #e6e6e6;

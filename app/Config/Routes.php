@@ -36,14 +36,6 @@ $routes->post('/author/update/(:num)', 'AuthorController::update/$1');
 $routes->get('/author/delete/(:num)', 'AuthorController::delete/$1');
 
 
-// Genres Routes
-$routes->get('/genre', 'GenreController::index');
-$routes->get('/genre/create', 'GenreController::create');
-$routes->post('/genre/store', 'GenreController::store');
-$routes->get('/genre/edit/(:num)', 'GenreController::edit/$1');
-$routes->post('/genre/update/(:num)', 'GenreController::update/$1');
-$routes->get('/genre/delete/(:num)', 'GenreController::delete/$1');
-
 // Categories Routes
 $routes->get('/category', 'CategoryController::index');
 $routes->get('/category/create', 'CategoryController::create');
@@ -60,6 +52,7 @@ $routes->get('/book/edit/(:num)', 'BookController::edit/$1');
 $routes->post('/book/update/(:num)', 'BookController::update/$1');
 $routes->get('/book/delete/(:num)', 'BookController::delete/$1');
 
+$routes->get('/book/show/(:num)', 'BookController::shows/$1'); // Route for viewing a single book
 
 // $routes->post('/bookrating/save', 'BookRatingController::save');
 // $routes->get('/bookrating/getRating/(:num)', 'BookRatingController::getRating/$1');
