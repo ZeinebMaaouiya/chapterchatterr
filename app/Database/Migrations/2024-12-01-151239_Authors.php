@@ -24,10 +24,6 @@ class Authors extends Migration
                 'type' => 'TEXT',
                 'null' => true
             ],
-            'birth_date' => [
-                'type' => 'DATE',
-                'null' => true
-            ],
             'nationality' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,

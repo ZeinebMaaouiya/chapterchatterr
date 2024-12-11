@@ -14,35 +14,35 @@ class Users extends Migration
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
-                'auto_increment' => true,
+                'auto_increment' => true
             ],
             'nom' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'constraint' => 255
             ],
             'prenom' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'constraint' => 255
             ],
             'email' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'unique'     => true,
+                'constraint' => 255
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'constraint' => 255
             ],
             'created_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
+                'null' => true
             ],
             'updated_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
+                'null' => true
             ],
         ]);
-        $this->forge->addKey('id', true);
+        
+        $this->forge->addKey('id', true); // Primary key
         $this->forge->createTable('users');
     }
 

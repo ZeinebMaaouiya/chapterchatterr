@@ -1,0 +1,166 @@
+*{
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+
+}
+a{
+    color: inherit;
+}
+li{
+    display: block;
+}
+body{
+    /* background-color: #f0efec; */
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: burlywood;
+}
+header ul{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right:10px ;
+
+}
+header div{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+header input{
+    width: 300px;
+    border-radius: 10px;
+    height: 30px;
+}
+.divIcone{
+    position: relative;
+}
+.divIcone i{
+    position: absolute;
+    right: 10px;
+}
+.indexBook main{
+    display: flex;
+    margin: 40px;
+    gap: 40px;
+}
+.indexBook main img{
+    height: 360px;
+    border-radius: 10px;
+    /* box-shadow: 4px 4px rgba(236, 236, 236, 0.549); */
+}
+.bgimg{
+    /* background: radial-gradient(circle,rgb(236, 236, 236), white); */
+    background: radial-gradient(farthest-corner, rgb(236, 236, 236), white);
+    padding: 20px;
+}
+.firstsec{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    gap: 10px;
+   
+}
+.firstsec button{
+    border: 0px;
+    border-radius:10px;
+    /* padding: 10px 60px; */
+    width: 200px;
+    height: 30px;
+}
+.secsection{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: justify;
+}
+.secsection>div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.secsection>div>h3{
+    font-size: 45px;
+}
+.secsection ul{
+    display: flex;
+    gap: 20px;
+    font: optional;
+    
+}
+.secsection>p{
+
+    text-align: justify;
+    
+}
+h6{
+    font-size: 18px;
+}
+h5{
+    font-size: 22px;
+}
+.rating li{
+font-family: fantasy;
+}
+
+
+
+/*                create book              */
+.create{
+    background-image: url(../img/pile-gros-plan-livres_23-2147896679.avif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.create header{
+    width: 100%;
+}
+.createBook{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.123);
+    border-radius: 18px;
+    background-color: white;
+    margin: 40px;
+    padding: 20px;
+
+}
+.createBook form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+   
+}
+.createBook input,select,textarea{
+    border-radius: 8px;
+    width: 400px;
+    border: none;
+    height: 30px;
+    padding: 5px;
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+.createBook button{
+    border: none;
+    background-color: antiquewhite;
+    padding: 10px 60px;
+    border-radius: 10px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+}

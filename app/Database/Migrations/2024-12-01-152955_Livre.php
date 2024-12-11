@@ -27,12 +27,7 @@ class Livre extends Migration
                 'unsigned' => true,
                 'null' => false
             ],
-            'category_id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'null' => false
-            ],
+           
             'summary' => [
                 'type' => 'TEXT',
                 'null' => true
@@ -87,7 +82,6 @@ class Livre extends Migration
 
         // Add foreign key constraints
         $this->forge->addForeignKey('author_id', 'authors', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('category_id', 'categories', 'id', 'CASCADE', 'CASCADE');
 
         // Create the 'livre' table
         $this->forge->createTable('livre');

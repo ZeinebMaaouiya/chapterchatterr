@@ -25,7 +25,7 @@ $routes->post('/reset-password', 'AuthController::resetPassword');
 
 $routes->get('/send-test-email', 'EmailController::sendTestEmail');
 
-$routes->get('/book', 'BookController::index');
+// $routes->get('/book', 'BookController::index');
 
 // Authors Routes
 $routes->get('/author', 'AuthorController::index');
@@ -34,6 +34,7 @@ $routes->post('/author/store', 'AuthorController::store');
 $routes->get('/author/edit/(:num)', 'AuthorController::edit/$1');
 $routes->post('/author/update/(:num)', 'AuthorController::update/$1');
 $routes->get('/author/delete/(:num)', 'AuthorController::delete/$1');
+
 
 // Genres Routes
 $routes->get('/genre', 'GenreController::index');
@@ -60,3 +61,5 @@ $routes->post('/book/update/(:num)', 'BookController::update/$1');
 $routes->get('/book/delete/(:num)', 'BookController::delete/$1');
 
 
+// $routes->post('/bookrating/save', 'BookRatingController::save');
+// $routes->get('/bookrating/getRating/(:num)', 'BookRatingController::getRating/$1');

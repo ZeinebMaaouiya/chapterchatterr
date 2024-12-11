@@ -11,7 +11,7 @@ class CategoryController extends BaseController
         $data['categories'] = $model->findAll();
         return view('categories/index', $data);
     }
-
+    
     public function create()
     {
         return view('categories/create');
