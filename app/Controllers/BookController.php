@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\LivreModel;
 use App\Models\AuthorModel;
 use App\Models\CategoryModel;
+use App\Models\CommentModel;
 use App\Models\BookCategoriesModel;
 
 class BookController extends BaseController
@@ -255,6 +256,46 @@ class BookController extends BaseController
     
         // Load the view with the data
         return view('books/display', $data);
+    }
+
+    public function comment()
+    {
+        // Check if the user is logged in
+        if (!session()->has('user')) {
+            return $this->response->setJSON(['success' => false, 'message' => 'You must be logged in to comment.']);
+        }
+
+        // Get comment data
+        $comment = $this->request->getPost('comment');
+        $bookId = $this->request->getPost('book_id');
+        $userId = session()->get('user_id');  // Get user ID from session
+
+        // Validate comment data
+        if (empty($comment) || empty($bookId) || empty($userId)) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Missing data.']);
+        }
+
+        // Create a new comment model
+        $commentModel = new CommentModel();
+        
+        // Prepare data to be saved
+        $data = [
+            'book_id' => $bookId,
+            'user_id' => $userId,
+            'content' => $comment,
+        ];
+
+        // Save the comment to the database
+        if ($commentModel->save($data)) {
+            // Return the success response with the username
+            return $this->response->setJSON([
+                'success' => true,
+                'username' => session('user')['name'],  // Or 'nom' and 'prenom' if those are used
+                'comment' => $comment
+            ]);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Failed to add comment.']);
+        }
     }
     
 }

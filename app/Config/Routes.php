@@ -56,3 +56,13 @@ $routes->get('/book/show/(:num)', 'BookController::shows/$1'); // Route for view
 
 // $routes->post('/bookrating/save', 'BookRatingController::save');
 // $routes->get('/bookrating/getRating/(:num)', 'BookRatingController::getRating/$1');
+// Book Comment Routes
+$routes->get('book/(:segment)', 'CommentController::view/$1');
+$routes->post('comment/create', 'CommentController::create');
+$routes->get('comment/update/(:segment)', 'CommentController::update/$1');
+$routes->post('comment/update/(:segment)', 'CommentController::update/$1');
+$routes->get('comment/delete/(:segment)', 'CommentController::delete/$1');
+
+// Book Rating (Review) Routes
+$routes->post('/book/rate', 'RatingController::rate');  // Rate a book
+$routes->get('/book/(:num)/average-rating', 'RatingController::averageRating/$1');  // Get the average rating for a specific book

@@ -5,6 +5,7 @@
 }
 ul li{ 
     display:block;
+    text-decoration: none;
 }
 /*       side bar          */
 

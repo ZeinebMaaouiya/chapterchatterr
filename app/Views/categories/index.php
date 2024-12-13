@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
 
 </head>
-<body>
-<header>
+<body class="cata">
+<header class="category">
         <div>
         <img src="<?= base_url('img/logo.png'); ?>" alt="Logo">
         <h1>chapter<span>chatter</span></h1>
@@ -27,7 +27,11 @@
                 <li><a href="/">home</a></li>
                 <li><a href="/book">bookes</a></li>
                 <li><a href="/author">autours</a></li>
-                <li><a href="/login">Log-in</a></li>
+                <?php if (session()->has('user')): ?>
+                    <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?>
+                <?php else: ?>
+                    <li><a href="/login">Log-in</a></li>
+                <?php endif; ?>
             </ul>
             <div class="divIcone">
                 <input type="search" placeholder="Search">
@@ -39,19 +43,23 @@
             <i class="fa-solid fa-user"></i>
         </div>
     </header>
-<?php foreach ($categories as $category): ?>
-    <div>
-        <h3><?= esc($category['name']); ?></h3>
-        <?php if (session('user_type') === 'admin'): ?>
+    <main cl>
+        <?php foreach ($categories as $category): ?>
+        <div>
+            <h3><?= esc($category['name']); ?></h3>
             <div class="actions">
-                <a href="/category/edit/<?= $category['id']; ?>">Edit</a>
-                <a href="/category/delete/<?= $category['id']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
-            </div>
-        <?php endif; ?>
-            </div>
-<?php endforeach; ?>
-    <?php if (session('user_type') === 'admin'): ?>
-        <a href="/category/create">Add New Category</a>
-    <?php endif; ?>
+                    <a href="/category/edit/<?= $category['id']; ?>">Edit</a>
+                    <a href="/category/delete/<?= $category['id']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
+                </div>
+            <?php if (session('user_type') === 'admin'): ?>
+                
+            <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+            <a href="/category/create">Add New Category</a>
+            <?php if (session('user_type') === 'admin'): ?>
+               
+            <?php endif; ?>
+    </main>
 </body>
 </html>

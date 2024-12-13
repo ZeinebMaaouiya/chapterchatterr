@@ -47,32 +47,40 @@ class AuthController extends BaseController
     public function login()
     {
         $userModel = new UserModel();
-
+    
         $validation = $this->validate([
             'email'    => 'required|valid_email',
             'password' => 'required',
         ]);
-
+    
         if (!$validation) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-
+    
         $user = $userModel->where('email', $this->request->getPost('email'))->first();
-
+    
         if (!$user || !password_verify($this->request->getPost('password'), $user['password'])) {
             return redirect()->back()->withInput()->with('error', 'Invalid email or password.');
         }
-
+    
+        // Set session data
         session()->set('user', [
             'id'    => $user['id'],
             'nom'   => $user['nom'],
             'prenom' => $user['prenom'],
             'email' => $user['email'],
         ]);
-
-        return redirect()->to('/dashboard')->with('success', 'Logged in successfully!');
+    
+        // Debugging: Check if the session is set
+        if (!session()->has('user')) {
+            log_message('error', 'Session not set properly after login.');
+        } else {
+            log_message('info', 'Session set for user: ' . session()->get('user')['id']);
+        }
+    
+        return redirect()->to('/')->with('success', 'Logged in successfully!');
     }
-
+    
     public function logout()
     {
         session()->destroy();

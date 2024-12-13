@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
     <link rel="manifest" href="/manifest/app.json">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/main.css') ?>">
 </head>
 <body>
 <header>
@@ -28,7 +28,11 @@
                 <li><a href="/category">categories</a></li>
                 <li><a href="/book">bookes</a></li>
                 <li><a href="/author">autours</a></li>
-                <li><a href="/login">Log-in</a></li>
+                <?php if (session()->has('user')): ?>
+                    <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?>
+                <?php else: ?>
+                    <li><a href="/login">Log-in</a></li>
+                <?php endif; ?>
             </ul>
             <div class="divIcone">
                 <input type="search" placeholder="Search">

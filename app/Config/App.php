@@ -181,7 +181,13 @@ class App extends BaseConfig
      * @var array<string, string>
      */
     public array $proxyIPs = [];
-
+    public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'; // Use FileHandler (or any other supported)
+    public $sessionCookieName = 'ci_session';
+    public $sessionExpiration = 7200; // Session lifetime in seconds
+    public $sessionSavePath = WRITEPATH . 'session';
+    public $sessionMatchIP = false;
+    public $sessionTimeToUpdate = 300;
+    public $sessionRegenerateDestroy = false;
     /**
      * --------------------------------------------------------------------------
      * Content Security Policy

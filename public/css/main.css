@@ -168,3 +168,57 @@ font-family: fantasy;
     display: flex;
     flex-direction: column;
 }
+.author{
+   
+}
+.author-card img{
+    height: 260px;
+}
+.author-card{
+    width: 300px;
+    flex-direction: column;
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    height: 600px;
+    box-shadow:1px 2px rgba(0, 0, 0, 0.123);
+    border-radius: 15px;
+}
+.author main{
+    margin: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: 40px;
+}
+.author-card p {
+    text-align: justify;
+}
+.cata main {
+    display: flex;
+    align-items: center;
+   justify-content: space-between;
+    height: 400px;
+    width: 600px;
+    background-image: url(../img/pile-gros-plan-livres_23-2147896679.avif);
+    border-radius: 15px;
+}
+.cata>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-be;
+    padding: 30px;
+}
+.cata{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+.cata header{
+    width: 100%;
+    margin-bottom: 40px;
+}

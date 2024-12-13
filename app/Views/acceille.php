@@ -51,7 +51,7 @@
 
                 <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?>
             <?php else: ?>
-                <li><a href="/login">Log-in</a></li>
+                <a href="/login">Log-in</a>
             <?php endif; ?>
 
             <i class="fa-solid fa-user"></i>

@@ -14,9 +14,9 @@
     <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
     <link rel="manifest" href="/manifest/app.json">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
-    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/main.css') ?>">
 </head>
-<body>
+<body class="author">
 <header>
         <div>
         <img src="<?= base_url('img/logo.png'); ?>" alt="Logo">

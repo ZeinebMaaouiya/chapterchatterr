@@ -11,7 +11,7 @@
         <div id="btn" class="btn">
                 <i class="fa-sharp fa-solid fa-bars"></i>
         </div>
-        <img src="<?=base_url('/img/Preview-removebg-preview.png')?>" alt="">
+        <img src="<?= base_url('img/logo.png'); ?>" alt="Logo">
         
         <div class="signe">
                 <p> <a href="/login">signe in</a></p>

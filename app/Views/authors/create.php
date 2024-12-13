@@ -28,7 +28,11 @@
                 <li><a href="/category">categories</a></li>
                 <li><a href="/book">bookes</a></li>
                 <li><a href="/author">autours</a></li>
-                <li><a href="/login">Log-in</a></li>
+                <?php if (session()->has('user')): ?>
+                    <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?>
+                <?php else: ?>
+                    <li><a href="/login">Log-in</a></li>
+                <?php endif; ?>
             </ul>
             <div class="divIcone">
                 <input type="search" placeholder="Search">

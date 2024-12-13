@@ -7,9 +7,8 @@
     
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-        <link rel="stylesheet" href="https://fontawesome.com/start">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://fontawesome.com/start">
     <link rel="icon" href="/favicon.ico">
     <link rel="icon" href="/images/favicon/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon.png">
@@ -20,16 +19,20 @@
 <body class="indexBook">
     <header>
         <div>
-        <img src="<?= base_url('img/logo.png'); ?>" alt="Logo">
-        <h1>chapter<span>chatter</span></h1>
+            <img src="<?= base_url('img/logo.png'); ?>" alt="Logo">
+            <h1>chapter<span>chatter</span></h1>
         </div>
         <div>
             <ul>
                 <li><a href="/">home</a></li>
                 <li><a href="/category">categories</a></li>
-                <li><a href="/book">bookes</a></li>
-                <li><a href="/author">autours</a></li>
-                <li><a href="/login">Log-in</a></li>
+                <li><a href="/book">books</a></li>
+                <li><a href="/author">authors</a></li>
+                <?php if (session()->has('user')): ?>
+                    <?= session('user')['nom'] ?> <?= session('user')['prenom'] ?>
+                <?php else: ?>
+                    <li><a href="/login">Log-in</a></li>
+                <?php endif; ?>
             </ul>
             <div class="search-bar">
                 <input type="search" placeholder="Search">
@@ -37,7 +40,11 @@
             </div>
         </div>
         <div class="signe">
-            <p><a href="/login">Sign In</a></p>
+            <?php if (session()->has('user')): ?>
+                <p><a href="/logout">Log Out</a></p>
+            <?php else: ?>
+                <p><a href="/login">Sign In</a></p>
+            <?php endif; ?>
             <i class="fa-solid fa-user"></i>
         </div>
     </header>
@@ -47,7 +54,6 @@
             <section class="firstsec">
                 <div class="book-cover">
                     <?php if (!empty($book['cover_image'])): ?>
-                        <!-- Assuming the cover_image field contains the image file name -->
                         <img src="<?= base_url('public/img/' . esc($book['cover_image'])); ?>" alt="<?= esc($book['name']); ?>" class="book-image">
                     <?php else: ?>
                         <img src="<?= base_url('public/img/default-cover.png'); ?>" alt="Default Cover" class="book-image">
@@ -62,8 +68,8 @@
                     </div>
                     <p id="average-rating">Average Rating: <?= esc($averageRating ?? 'Not Rated'); ?></p>
                 </div>
+            </section>
 
-            </Section>
             <section class="secsection">
                 <div class="book-details">
                     <h3><?= esc($book['name']); ?></h3>
@@ -99,32 +105,46 @@
             <p>Book not found.</p>
         <?php endif; ?>
 
-        <div id="comments-section">
-                    <h3>Comments:</h3>
-                    <?php if (!empty($comments)): ?>
-                        <ul>
-                            <?php foreach ($comments as $comment): ?>
-                                <li>
-                                    <strong><?= esc($comment['username']); ?>:</strong> <?= esc($comment['content']); ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else: ?>
-                        <p>No comments yet. Be the first to comment!</p>
-                    <?php endif; ?>
+        <section id="comments-section">
+        <h3>Comments:</h3>
 
-                    <!-- Add a new comment -->
-                    <form id="comment-form" method="POST" action="<?= base_url('book/comment'); ?>">
-                        <textarea name="comment" placeholder="Write your comment here..." required></textarea>
-                        <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
-                        <button type="submit">Submit</button>
-                    </form>
-                    <?php if (session('user_type') === 'admin'): ?>
-                        <div class="actions">
-                            <a href="/book/edit/<?= $book['id']; ?>">Edit</a>
-                            <a href="/book/delete/<?= $book['id']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                        </div>
-                    <?php endif; ?>
+        <!-- Comment form -->
+        <?php if (session()->has('user')): ?>
+            <form method="POST" action="<?= base_url('comment/create'); ?>">
+                <textarea name="comment" placeholder="Write your comment here..." required></textarea>
+                <input type="hidden" name="book_id" value="<?= $book['id']; ?>">
+                <button type="submit">Submit</button>
+            </form>
+        <?php else: ?>
+            <p>You must be logged in to comment.</p>
+        <?php endif; ?>
+
+        <!-- Display the comments -->
+        <ul>
+        <?php if (empty($comments)): ?>
+        <p>No comments yet.</p>
+        <?php else: ?>
+            <ul>
+                <?php foreach ($comments as $comment): ?>
+                    <li>
+                        <strong>User <?= esc($comment['user_id']); ?>:</strong>
+                        <p><?= esc($comment['content']); ?></p>
+                        <!-- Edit and Delete options -->
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        </ul>
+    </section>
+        </div>
+
+        
+            <div class="actions">
+                <a href="/book/edit/<?= $book['id']; ?>">Edit</a>
+                <a href="/book/delete/<?= $book['id']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
+            </div>
+            
         
 
         <a href="/book/create" class="add-new">Add New Book</a>
@@ -133,47 +153,8 @@
     <footer>
         <p>&copy; 2024 Chapter Chatter. All rights reserved.</p>
     </footer>
-    <script>
-        document.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = this.getAttribute('data-value');
-                const bookId = document.getElementById('rating-section').getAttribute('data-book-id');
-                fetch('<?= base_url("book/rate"); ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({ book_id: bookId, rating: rating })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('average-rating').textContent = `Average Rating: ${data.average_rating}`;
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
 
-        document.getElementById('comment-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            fetch('<?= base_url("book/comment"); ?>', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const commentList = document.querySelector('#comments-section ul');
-                    const newComment = document.createElement('li');
-                    newComment.innerHTML = `<strong>${data.username}:</strong> ${data.comment}`;
-                    commentList.appendChild(newComment);
-                    this.reset();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
+    
     </script>
-
 </body>
 </html>
